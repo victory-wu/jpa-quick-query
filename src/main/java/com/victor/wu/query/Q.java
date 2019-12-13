@@ -8,7 +8,9 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -127,10 +129,18 @@ public class Q<T> implements Specification<T> {
                 predicate = (cb.notLike((Expression<String>) getFieldPath(root, condition.getField()), (String) condition.getValue()));
                 break;
             case gt:
-                predicate = (cb.gt((Expression<? extends Number>) getFieldPath(root, condition.getField()), (Number) condition.getValue()));
+                if(condition.getValue() instanceof Number) {
+                    predicate = (cb.gt((Expression<? extends Number>) getFieldPath(root, condition.getField()), (Number) condition.getValue()));
+                } else {
+                    predicate = (cb.greaterThan(getFieldPath(root, condition.getField()), (Comparable) condition.getValue()));
+                }
                 break;
             case lt:
-                predicate = (cb.lt((Expression<? extends Number>) getFieldPath(root, condition.getField()), (Number) condition.getValue()));
+                if(condition.getValue() instanceof Number) {
+                    predicate = (cb.lt((Expression<? extends Number>) getFieldPath(root, condition.getField()), (Number) condition.getValue()));
+                } else {
+                    predicate = (cb.lessThan(getFieldPath(root, condition.getField()), (Comparable) condition.getValue()));
+                }
                 break;
             case equals:
                 predicate = (cb.equal(getFieldPath(root, condition.getField()), condition.getValue()));
@@ -142,7 +152,7 @@ public class Q<T> implements Specification<T> {
         return predicate;
     }
 
-    public Expression<T> getFieldPath(Root<T> root, String fieldName) {
+    public Expression getFieldPath(Root<T> root, String fieldName) {
         if (fieldName.indexOf('.') == -1) {
             return root.get(fieldName);
         }

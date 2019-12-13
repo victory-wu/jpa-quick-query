@@ -34,11 +34,11 @@ public class Condition extends BaseCondition {
         this.expressions = expressions;
     }
 
-    public static Condition like(String field, String value, boolean ignoreNull){
+    public static Condition lk(String field, String value, boolean ignoreNull){
         return new Condition(field, ConditionType.like, value, ignoreNull);
     }
 
-    public static Condition notLike(String field, String value, boolean ignoreNull){
+    public static Condition nlk(String field, String value, boolean ignoreNull){
         return new Condition(field, ConditionType.notLike, value, ignoreNull);
     }
 
@@ -46,14 +46,14 @@ public class Condition extends BaseCondition {
         return new Condition(field, ConditionType.equals, value, ignoreNull);
     }
 
-    public static Condition notEq(String field, Object value, boolean ignoreNull){
+    public static Condition neq(String field, Object value, boolean ignoreNull){
         return new Condition(field, ConditionType.notEquals, value, ignoreNull);
     }
 
-    public static Condition lt(String field, Number value, boolean ignoreNull){
+    public static Condition lt(String field, Object value, boolean ignoreNull){
         return new Condition(field, ConditionType.lt, value, ignoreNull);
     }
-    public static Condition gt(String field, Number value, boolean ignoreNull){
+    public static Condition gt(String field, Object value, boolean ignoreNull){
         return new Condition(field, ConditionType.gt, value, ignoreNull);
     }
 

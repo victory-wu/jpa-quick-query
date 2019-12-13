@@ -15,7 +15,7 @@ import java.util.List;
 
 @Getter
 public class ConditionGroup extends BaseCondition {
-    private List<BaseCondition> list = new ArrayList<>();
+    private List<Condition> list = new ArrayList<>();
     private ConditionAndOr conditionAndOr;
 
     private ConditionGroup(ConditionAndOr conditionAndOr){
@@ -30,7 +30,7 @@ public class ConditionGroup extends BaseCondition {
         return new ConditionGroup(ConditionAndOr.or);
     }
 
-    public void add(BaseCondition condi){
+    public void add(Condition condi){
         list.add(condi);
     }
 
