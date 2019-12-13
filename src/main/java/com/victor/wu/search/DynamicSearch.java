@@ -5,10 +5,8 @@ import com.victor.wu.query.Q;
 import com.victor.wu.search.interpreter.quick.QuickQueryParameterInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 

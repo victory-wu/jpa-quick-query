@@ -1,11 +1,7 @@
 package com.victor.wu.search.interpreter;
 
-import com.victor.wu.constant.SearchParameterType;
 import com.victor.wu.constant.SearchSymbolType;
 import com.victor.wu.search.interpreter.param.BaseParameterInterpreter;
-import com.victor.wu.search.interpreter.param.StringParameterInterpreter;
-
-import java.util.function.Function;
 
 public abstract class AbstractInterpreter<R> {
     /**
