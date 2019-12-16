@@ -32,6 +32,7 @@ public class QuickQueryParameterInterpreter extends AbstractInterpreter<Conditio
     /**
      * 无条件模式
      */
+    @Override
     protected Condition unconditional(String[] params, String[] value) throws Exception {
         String paramName = params[0];
         return Condition.eq(paramName, getValue(value, SearchSymbolType.EQ, String.class), true);
@@ -40,6 +41,7 @@ public class QuickQueryParameterInterpreter extends AbstractInterpreter<Conditio
     /**
      * 指定条件
      */
+    @Override
     protected Condition assignConditional(String[] params, String[] value) throws Exception {
         String paramName = params[0];
         SearchSymbolType symbol = SearchSymbolType.valueOf(params[1]);
@@ -50,6 +52,7 @@ public class QuickQueryParameterInterpreter extends AbstractInterpreter<Conditio
     /**
      * 指定参数类型
      */
+    @Override
     protected Condition assignConditionalAndParamType(String[] params, String[] value) throws Exception {
         String paramName = params[0];
         SearchSymbolType symbol = SearchSymbolType.valueOf(params[1]);

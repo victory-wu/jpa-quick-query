@@ -13,6 +13,7 @@ import java.util.Date;
 @Getter
 public enum SearchParameterType {
     N(Number.class),
+    L(Long.class),
     B(Boolean.class),
     S(String.class),
     D(Date.class),

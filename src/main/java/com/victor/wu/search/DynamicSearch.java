@@ -3,10 +3,16 @@ package com.victor.wu.search;
 import com.victor.wu.constant.SearchConstant;
 import com.victor.wu.query.Q;
 import com.victor.wu.search.interpreter.quick.QuickQueryParameterInterpreter;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.connector.RequestFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -18,16 +24,13 @@ import java.util.Map;
  *
  *
  *
+ * @author wzx
  */
-@Component
-public class DynamicSearch {
+public class DynamicSearch extends LinkedHashMap<String, String[]> {
 
-    @Autowired
-    private HttpServletRequest request;
-    @Autowired
-    private QuickQueryParameterInterpreter sqlQueryParameterInterpreter;
+    private QuickQueryParameterInterpreter sqlQueryParameterInterpreter = new QuickQueryParameterInterpreter();
 
-    public Q getQ() {
+    public Q getQ(HttpServletRequest request) {
         Q q = new Q();
         try {
             for (Map.Entry<String, String[]> stringEntry : request.getParameterMap().entrySet()) {
