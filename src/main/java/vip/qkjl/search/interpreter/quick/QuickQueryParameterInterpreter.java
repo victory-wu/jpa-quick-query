@@ -11,11 +11,26 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
+/**
+ * 快捷查询解释器
+ * @author wzx
+ */
 @Component
 public class QuickQueryParameterInterpreter extends AbstractInterpreter<Condition> {
 
+
+    /**
+     * 主动调用
+     * @param param 参数名
+     * @param value 值
+     * @return Condition
+     * @throws Exception Exception
+     */
     public Condition invoke(String param, String[] value) throws Exception {
-        param = param.substring(2); // 过滤边角料
+        /**
+         * 过滤前缀内容
+         */
+        param = param.substring(2);
         String[] params = param.split(SearchConstant.DYNAMIC_SEARCH_PARAMETER_SEPARATOR);
         switch (params.length) {
             case 1:
@@ -30,7 +45,11 @@ public class QuickQueryParameterInterpreter extends AbstractInterpreter<Conditio
     }
 
     /**
-     * 无条件模式
+     * 无条件查询
+     * @param params 参数
+     * @param value 查询值
+     * @return Condition
+     * @throws Exception Exception
      */
     @Override
     protected Condition unconditional(String[] params, String[] value) throws Exception {
@@ -39,7 +58,11 @@ public class QuickQueryParameterInterpreter extends AbstractInterpreter<Conditio
     }
 
     /**
-     * 指定条件
+     * 按条件查询
+     * @param params 参数
+     * @param value 查询值
+     * @return Condition
+     * @throws Exception Exception
      */
     @Override
     protected Condition assignConditional(String[] params, String[] value) throws Exception {
@@ -49,8 +72,13 @@ public class QuickQueryParameterInterpreter extends AbstractInterpreter<Conditio
         Method method = getMethod(Condition.class, paramCondition);
         return (Condition) method.invoke(null, paramName, getValue(value, symbol, String.class), true);
     }
+
     /**
-     * 指定参数类型
+     * 指定参数查询
+     * @param params 参数
+     * @param value 查询值
+     * @return Condition
+     * @throws Exception Exception
      */
     @Override
     protected Condition assignConditionalAndParamType(String[] params, String[] value) throws Exception {
@@ -62,8 +90,15 @@ public class QuickQueryParameterInterpreter extends AbstractInterpreter<Conditio
         return (Condition) method.invoke(null, paramName, getValue(value, symbol, SearchParameterType.valueOf(paramType).getCls()), true);
     }
 
+    /**
+     * 获取方法
+     * @param cls 类
+     * @param methodName 方法名字
+     * @return
+     * @throws NoSuchMethodException
+     */
     Method getMethod(Class cls, String methodName) throws NoSuchMethodException {
-        for (Method item : Condition.class.getDeclaredMethods()) {
+        for (Method item : cls.getDeclaredMethods()) {
             if (item.getName().equals(methodName)) {
                 return item;
             }

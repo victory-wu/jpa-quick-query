@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created with IDEA
+ * 条件
  * ProjectName: server
  * Date: 10/31/18 5:18 PM
  * @author wzx
@@ -20,13 +20,6 @@ public class Condition extends BaseCondition {
     private boolean ignoreNull;
     private ConditionType expressions;
 
-    /**
-     *
-     * @param field
-     * @param expressions
-     * @param value
-     * @param ignoreNull 是否忽略空值
-     */
     Condition(String field, ConditionType expressions, Object value, boolean ignoreNull) {
         this.field = field;
         this.value = value;
